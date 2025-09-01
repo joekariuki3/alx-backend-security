@@ -1,0 +1,10 @@
+{% extends 'ip_tracking/base.html' %}
+{% block title %}{{user.username}} - profile{% endblock %}
+{% block content %}
+<h3>{{user.username}} Details</h3>
+<p>Username: {{user.username}}</p>
+<p>Email: {{user.email}}</p>
+<a href="{% url 'home' %}">Home</a>
+<br>
+<a href="{% url 'logout' %}">LogOut</a>
+{% endblock content %}

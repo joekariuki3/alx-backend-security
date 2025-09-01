@@ -1,0 +1,14 @@
+{% extends 'ip_tracking/base.html' %}
+{% block title %}Home{% endblock %}
+{% block content %}
+    <p>welcome to home page</p>
+    {% if user.is_authenticated %}
+        <h1>Welcome {{ user.email }}</h1>
+        <a href="{% url 'profile' %}">Profile</a>
+        <a href="{% url 'logout' %}">LogOut</a>
+    {% else %}
+        <h1>Welcome Anonymous</h1>
+        <a href="{% url 'login' %}">LogIn</a>
+    {% endif %}
+
+{% endblock content %}
