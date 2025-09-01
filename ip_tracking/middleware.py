@@ -1,5 +1,6 @@
 from datetime import datetime
-
+from .models import BlockedIP
+from django.http import HttpResponseForbidden, HttpResponse
 
 class LogRequestDetailsMiddleware:
     """
@@ -11,8 +12,15 @@ class LogRequestDetailsMiddleware:
 
     def __call__(self, request):
         # Code to be executed for each request before
-        request.META['REQUEST_TIME'] = datetime.now()
-        print(f"Request from {request.META['REMOTE_ADDR']} at {request.META['REQUEST_TIME']}. Path: {request.path}")
+        date_time = request.META.get('REQUEST_TIME', datetime.now())
+        ip_address = request.META.get('REMOTE_ADDR', 'Unknown')
+        path = request.path
+        print(f"Request from {ip_address} at {date_time}. Path: {path}")
+
+        blacklisted_ip = BlockedIP.objects.filter(ip_address=ip_address).exists()
+        if blacklisted_ip:
+            return HttpResponseForbidden("Forbidden", status=403)
+
         response = self.get_response(request)
         # Code to be executed for each request/response after
 
