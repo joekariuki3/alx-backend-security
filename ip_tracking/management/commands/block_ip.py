@@ -19,5 +19,6 @@ class Command(BaseCommand):
         for ip in ip_list:
             try:
                 BlockedIP.objects.create(ip_address=ip)
+                print(f"Ip {ip} added to BlockedIP")
             except Exception as e:
                 print(f"Error creating ip: {e}")
