@@ -13,7 +13,7 @@ SECRET_KEY = 'django-insecure-1j!t-a9=7@4-q5o+)csjerv20rgi^)w5!$doc)7j3@6z0j6up5
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ["*"]
 
 
 # Application definition
@@ -28,16 +28,17 @@ INSTALLED_APPS = [
     'ip_tracking',
 ]
 
+
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
+    'ip_tracking.middleware.LogRequestDetailsMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
-
 ROOT_URLCONF = 'alx_backend_security.urls'
 
 TEMPLATES = [
