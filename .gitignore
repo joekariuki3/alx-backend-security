@@ -14,3 +14,9 @@ wheels/
 .idea
 .vscode
 *.swp
+
+# database
+*.sqlite3
+*.sql
+*.db
+/instance
