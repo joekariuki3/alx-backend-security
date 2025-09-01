@@ -3,7 +3,8 @@ from datetime import datetime
 
 class LogRequestDetailsMiddleware:
     """
-    Middleware to log the ip address, timestamp, and path of every incoming request.
+    Middleware to log the ip address, timestamp,
+    and path of every incoming request.
     """
     def __init__(self, get_response):
         self.get_response = get_response
