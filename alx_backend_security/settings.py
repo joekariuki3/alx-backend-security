@@ -27,6 +27,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'ip_tracking',
+    'django_celery_results',
+    'django_celery_beat',
 ]
 
 
@@ -118,4 +120,22 @@ CACHES = {
         "BACKEND": "django.core.cache.backends.redis.RedisCache",
         "LOCATION": "redis://127.0.0.1:6379",
     }
+}
+
+# celery
+CELERY_BROKER_URL = "redis://127.0.0.1:6379"
+CELERY_RESULT_BACKEND = "django-db"
+CELERY_ACCEPT_CONTENT = ["application/json"]
+CELERY_TASK_SERIALIZER = "json"
+CELERY_RESULT_SERIALIZER = "json"
+CELERY_TIMEZONE = "UTC"
+
+# django-celery-beat
+CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
+CELERY_BEAT_SCHEDULE = {
+    'run_hourly_flag_suspicious_ip_task': {
+        'task': 'ip_tracking.tasks.flag_suspicious_ip',
+        'schedule': 3600.0, # run every 3600 seconds (1 hour)
+        'args': ()
+    },
 }
